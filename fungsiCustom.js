@@ -18,7 +18,39 @@ let modifyFile3 = (val) => {
 
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
-const bacaData = null;
+const fs = require('fs');
+const bacaData = (fnCallback) => {
+  let arrayOfString = [];
+
+  fs.readFile(file1, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const json = JSON.parse(data);
+    arrayOfString.push(json.message.split(' ')[1]);
+  });
+
+  fs.readFile(file2, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const json = JSON.parse(data);
+    arrayOfString.push(json[0].message.split(' ')[1]);
+  });
+
+  fs.readFile(file3, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const json = JSON.parse(data);
+    arrayOfString.push(json[0].data.message.split(' ')[1]);
+
+    fnCallback(err, arrayOfString);
+  });
+};
 
 // ! JANGAN DIMODIFIKASI
 module.exports = {
